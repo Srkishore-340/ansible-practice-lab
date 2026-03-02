@@ -1,0 +1,6 @@
+---
+env_name: dev
+app_user: devops
+app_root: /opt/demo-app
+nginx_listen_port: 8080
+nginx_server_name: localhost

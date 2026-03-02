@@ -1,0 +1,16 @@
+---
+- name: Deploy Nginx on webservers
+  hosts: webservers
+  become: true
+  serial: 3
+  tasks:
+    - name: Install Nginx package
+      ansible.builtin.package:
+        name: nginx
+        state: present
+
+    - name: Enable and start Nginx service
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true

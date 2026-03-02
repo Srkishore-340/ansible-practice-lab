@@ -1,0 +1,19 @@
+---
+- name: Install baseline packages
+  ansible.builtin.package:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: Ensure application user exists
+  ansible.builtin.user:
+    name: "{{ app_user }}"
+    shell: /bin/bash
+    create_home: true
+
+- name: Ensure application root directory exists
+  ansible.builtin.file:
+    path: "{{ app_root }}"
+    state: directory
+    owner: "{{ app_user }}"
+    group: "{{ app_user }}"
+    mode: '0755'

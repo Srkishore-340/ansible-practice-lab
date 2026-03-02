@@ -1,0 +1,24 @@
+---
+- name: Install Nginx package
+  ansible.builtin.package:
+    name: nginx
+    state: present
+
+- name: Deploy Nginx virtual host config
+  ansible.builtin.template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/conf.d/demo-app.conf
+    mode: '0644'
+  notify: Restart nginx
+
+- name: Deploy sample application page
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: /usr/share/nginx/html/index.html
+    mode: '0644'
+
+- name: Ensure Nginx is enabled and running
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true

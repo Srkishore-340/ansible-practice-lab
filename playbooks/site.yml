@@ -1,0 +1,12 @@
+---
+- name: Baseline and web setup
+  hosts: all
+  become: true
+  roles:
+    - role: common
+
+- name: Deploy Nginx web layer
+  hosts: webservers
+  become: true
+  roles:
+    - role: nginx
