@@ -1,0 +1,19 @@
+students:
+  - id: S001
+    name: Alice Johnson
+    age: 20
+    grade: A
+    subjects:
+      - Math
+      - Physics
+
+  - id: S002
+    name: Bob Smith
+    age: 21
+    grade: B+
+    subjects:
+      - History
+      - Literature
+
+class_teacher: Mrs. Taylor
+academic_year: "2026"

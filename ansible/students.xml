@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<students>
+  <student id="S001">
+    <name>Alice Johnson</name>
+    <age>20</age>
+    <grade>A</grade>
+    <subjects>
+      <subject>Math</subject>
+      <subject>Physics</subject>
+    </subjects>
+  </student>
+  <student id="S002">
+    <name>Bob Smith</name>
+    <age>21</age>
+    <grade>B+</grade>
+    <subjects>
+      <subject>History</subject>
+      <subject>Literature</subject>
+    </subjects>
+  </student>
+</students>
