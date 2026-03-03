@@ -1,5 +1,17 @@
-- name: ping the server
-  hosts: ansible
-  tasks:
-  - name: ping the web server
-    ansible.builtin.ping:
+# This is a Play (top-level definition)
+- name: install and run nginx          # Play name (just description)
+  hosts: web                           # Target group from inventory
+  become: yes                          # Use sudo (run tasks as root)
+
+  tasks:                               # List of tasks to execute
+
+    - name: install nginx              # Task 1 description
+      ansible.builtin.package:         # Generic package module (works for apt/yum automatically)
+        name: nginx                    # Package name
+        state: present                 # Ensure nginx is installed
+
+    - name: start nginx                # Task 2 description
+      ansible.builtin.service:         # Service management module
+        name: nginx                    # Service name
+        state: started                 # Ensure service is running
+        enabled: yes                   # Ensure service starts on boot
