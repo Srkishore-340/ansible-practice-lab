@@ -1,0 +1,4 @@
+# External variables file used by 03-vars-files.yml
+course: "DevOps"
+trainer: "Reddy"
+duration: "120HRS"

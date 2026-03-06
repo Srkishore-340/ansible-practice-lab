@@ -1,0 +1,9 @@
+---
+- name: Demo - Inventory variables
+  hosts: local
+  gather_facts: false
+
+  tasks:
+    - name: Print values that come directly from inventory
+      ansible.builtin.debug:
+        msg: "Inventory says course={{ course }}, env={{ env }}"
