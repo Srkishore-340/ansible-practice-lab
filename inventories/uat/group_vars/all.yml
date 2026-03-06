@@ -1,0 +1,6 @@
+---
+env_name: uat
+app_user: uatapp
+app_root: /opt/demo-app
+nginx_listen_port: 80
+nginx_server_name: uat.example.internal

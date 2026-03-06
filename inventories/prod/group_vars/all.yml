@@ -1,0 +1,6 @@
+---
+env_name: prod
+app_user: prodapp
+app_root: /opt/demo-app
+nginx_listen_port: 80
+nginx_server_name: www.example.com
