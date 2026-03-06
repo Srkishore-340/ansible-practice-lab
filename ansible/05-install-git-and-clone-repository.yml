@@ -1,0 +1,29 @@
+- name: Install git and clone repository
+  hosts: all
+  become: true
+
+  vars:
+    app_repo: https://github.com/example/myapp.git
+    app_dest: /opt/myapp
+    app_version: main
+
+  tasks:
+    - name: Ensure git is installed
+      ansible.builtin.package:
+        name: git
+        state: present
+
+    - name: Ensure application directory exists
+      ansible.builtin.file:
+        path: "{{ app_dest }}"
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Clone or update application repository
+      ansible.builtin.git:
+        repo: "{{ app_repo }}"
+        dest: "{{ app_dest }}"
+        version: "{{ app_version }}"
+        update: true
