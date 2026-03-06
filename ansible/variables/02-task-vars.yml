@@ -1,0 +1,21 @@
+---
+- name: Demo - Task level variables override play vars
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    course: "DevOps with AWS"
+    trainer: "Sivakumar Reddy"
+
+  tasks:
+    - name: First task uses only play-level values
+      ansible.builtin.debug:
+        msg: "From play vars -> Course: {{ course }}, Trainer: {{ trainer }}"
+
+    - name: Second task overrides course only for this task
+      vars:
+        # This value exists only inside this task.
+        course: "Ansible"
+      ansible.builtin.debug:
+        msg: "Task-level override -> Course: {{ course }}, Trainer: {{ trainer }}"

@@ -1,0 +1,27 @@
+---
+- name: Demo - Variable precedence in one place
+  hosts: local
+  gather_facts: false
+
+  # Lower-priority play variable
+  vars:
+    name: "from_play"
+
+  # Mid-priority file variable (can override play var)
+  vars_files:
+    - precedence-vars.yml
+
+  tasks:
+    - name: Show value before task override
+      ansible.builtin.debug:
+        msg: "Current name before task var: {{ name }}"
+
+    - name: Task-level var beats play and vars_files
+      vars:
+        name: "from_task"
+      ansible.builtin.debug:
+        msg: "Current name in task: {{ name }}"
+
+    - name: Reminder for highest precedence
+      ansible.builtin.debug:
+        msg: "Run with -e name=from_extra and extra vars will win over everything."

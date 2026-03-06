@@ -1,0 +1,14 @@
+---
+- name: Demo - Extra vars from command line
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  # Default value is here only for demo safety.
+  vars:
+    name: "friend"
+
+  tasks:
+    - name: Show how CLI -e overrides defaults
+      ansible.builtin.debug:
+        msg: "Hi {{ name }}, good morning"

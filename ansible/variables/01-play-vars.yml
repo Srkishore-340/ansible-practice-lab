@@ -1,0 +1,16 @@
+---
+- name: Demo - Play level variables
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  # These variables are declared once and shared by every task in this play.
+  vars:
+    course: "DevOps with AWS"
+    duration: "140HRS"
+    trainer: "Sivakumar Reddy"
+
+  tasks:
+    - name: Show values coming from play vars
+      ansible.builtin.debug:
+        msg: "Course: {{ course }}, Duration: {{ duration }}, Trainer: {{ trainer }}"

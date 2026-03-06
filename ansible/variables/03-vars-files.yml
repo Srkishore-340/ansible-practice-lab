@@ -1,0 +1,20 @@
+---
+- name: Demo - vars_files with a task-level override
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  # Keep larger variable sets in separate files to keep playbooks readable.
+  vars_files:
+    - course-vars.yml
+
+  tasks:
+    - name: Show values loaded from vars file
+      ansible.builtin.debug:
+        msg: "From vars file -> Course: {{ course }}, Trainer: {{ trainer }}, Duration: {{ duration }}"
+
+    - name: Override one value only in this task
+      vars:
+        course: "Ansible"
+      ansible.builtin.debug:
+        msg: "Task wins here -> Course: {{ course }}, Trainer: {{ trainer }}"
