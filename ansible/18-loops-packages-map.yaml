@@ -1,0 +1,16 @@
+- name: Learn loop with list of maps
+  hosts: local
+  connection: local
+  become: true
+
+  tasks:
+    - name: Manage package using name and state
+      ansible.builtin.package:
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
+      loop:
+        - name: nginx
+          state: present
+        - name: zip
+          state: absent
+      # each item has two keys: name and state

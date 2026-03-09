@@ -1,0 +1,20 @@
+- name: Learn shell module usage
+  hosts: local
+  connection: local
+
+  tasks:
+    - name: Use shell with pipe
+      ansible.builtin.shell: cat /etc/passwd | grep root
+      register: root_user_line
+      # Use shell when command has pipe(|) or redirection(>)
+
+    - name: Print only command output
+      ansible.builtin.debug:
+        msg: "{{ root_user_line.stdout }}"
+
+    - name: Use shell with redirection
+      ansible.builtin.shell: ls -ltr > /tmp/files.txt
+
+    - name: Show simple confirmation
+      ansible.builtin.debug:
+        msg: "Saved output to /tmp/files.txt"

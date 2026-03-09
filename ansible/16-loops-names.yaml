@@ -1,0 +1,13 @@
+- name: Learn simple loop with names
+  hosts: local
+  connection: local
+
+  tasks:
+    - name: Print greeting for each name
+      ansible.builtin.debug:
+        msg: "Hello {{ item }}"
+      loop:
+        - Ramesh
+        - Raheem
+        - John
+      # item is the current value in the loop

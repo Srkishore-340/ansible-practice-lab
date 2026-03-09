@@ -1,0 +1,14 @@
+- name: Learn basic error handling
+  hosts: local
+  connection: local
+  become: true
+
+  tasks:
+    - name: Check user exists or not
+      ansible.builtin.command: id roboshop
+      register: user_check
+      ignore_errors: true # don't stop playbook if user is missing
+
+    - name: Create user if missing
+      ansible.builtin.command: useradd roboshop
+      when: user_check.rc != 0 # create only when id command fails
