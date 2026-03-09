@@ -1,0 +1,11 @@
+- name: Learn condition with a number
+  hosts: local
+  connection: local
+  vars:
+    number_of_sessions: 7
+
+  tasks:
+    - name: Check sessions count
+      ansible.builtin.debug:
+        msg: "Sessions are more than 5"
+      when: number_of_sessions > 5 # run when condition is true

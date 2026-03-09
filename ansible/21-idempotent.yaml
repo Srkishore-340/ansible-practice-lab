@@ -1,0 +1,11 @@
+- name: Learn idempotent task
+  hosts: local
+  connection: local
+  become: true
+
+  tasks:
+    - name: Ensure user johnd exists
+      ansible.builtin.user:
+        name: johnd
+        state: present
+      # safe to run many times, result stays same

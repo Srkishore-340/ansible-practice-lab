@@ -1,0 +1,18 @@
+- name: Learn conditions using system facts
+  hosts: local
+  connection: local
+
+  tasks:
+    - name: Print OS family
+      ansible.builtin.debug:
+        msg: "OS Family: {{ ansible_facts.os_family }}"
+
+    - name: Message for RedHat systems
+      ansible.builtin.debug:
+        msg: "This host is in RedHat family"
+      when: ansible_facts.os_family == "RedHat" # run only on RedHat
+
+    - name: Message for Debian systems
+      ansible.builtin.debug:
+        msg: "This host is in Debian family"
+      when: ansible_facts.os_family == "Debian" # run only on Debian

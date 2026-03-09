@@ -1,0 +1,11 @@
+- name: Learn simple condition (true or false)
+  hosts: local
+  connection: local
+  vars:
+    is_live: false
+
+  tasks:
+    - name: Run only if class is live
+      ansible.builtin.debug:
+        msg: "Class is live"
+      when: is_live # this task runs only when value is true

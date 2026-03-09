@@ -1,0 +1,14 @@
+- name: Learn loop with packages
+  hosts: local
+  connection: local
+  become: true
+
+  tasks:
+    - name: Install packages from list
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nginx
+        - zip
+      # installs one package at a time

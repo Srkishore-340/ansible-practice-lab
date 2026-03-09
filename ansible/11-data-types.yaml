@@ -1,0 +1,25 @@
+- name: Learn basic data types in Ansible
+  hosts: local
+  connection: local
+
+  vars:
+    course_name: "DevSecOps with AWS" # text value (string)
+    total_sessions: 140 # number value
+    is_live: true # true or false (boolean)
+    trainer_info: # key-value data (dictionary)
+      name: "Ravi Kishore Sara"
+      months: 4
+    topics: # list of values
+      - Linux
+      - Shell
+      - Ansible
+
+  tasks:
+    - name: Print all variables
+      ansible.builtin.debug:
+        msg: |
+          course_name: {{ course_name }}
+          total_sessions: {{ total_sessions }}
+          is_live: {{ is_live }}
+          trainer_info: {{ trainer_info }}
+          topics: {{ topics }}

@@ -1,0 +1,30 @@
+- name: Learn simple filters
+  hosts: local
+  connection: local
+  vars:
+    topics_csv: "linux,shell,ansible"
+    course_name: "DevOps with Ansible"
+    tags_map:
+      project: roboshop
+      component: catalogue
+
+  tasks:
+    - name: default filter
+      ansible.builtin.debug:
+        msg: "{{ greeting | default('Good Morning') }}" # use this if greeting is not set
+
+    - name: split filter
+      ansible.builtin.debug:
+        msg: "{{ topics_csv | split(',') }}" # string becomes list
+
+    - name: upper filter
+      ansible.builtin.debug:
+        msg: "{{ course_name | upper }}"
+
+    - name: lower filter
+      ansible.builtin.debug:
+        msg: "{{ course_name | lower }}"
+
+    - name: dict2items filter
+      ansible.builtin.debug:
+        msg: "{{ tags_map | dict2items }}" # map becomes list
