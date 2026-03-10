@@ -2,8 +2,8 @@
   hosts: all 
   connection: local
   vars:
-    sg_id:
-    ami_id:
+    sg_id: sg-04d26ebef6a9e9ddc
+    ami_id: ami-0220d79f3f480ecf5
     env: dev
     instances:
     - mangodb
