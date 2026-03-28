@@ -1,0 +1,102 @@
+---
+# Playbook starts
+
+- name: Full Ansible Demo Playbook                # Play name (for readability/logging)
+  hosts: webservers                              # Target group from inventory
+  become: yes                                    # Run all tasks with sudo/root
+
+  vars:                                          # Inline variables
+    pkg_name: nginx                              # Package name variable
+    user_name: devuser                           # Username to create
+    file_path: /var/www/html/index.html          # File path variable
+
+  vars_files:                                    # External variables file
+    - vars.yml                                   # Loads variables from vars.yml
+
+  tasks:                                         # All tasks start here
+
+    - name: Install multiple packages            # Task name
+      apt:                                       # Module (Debian-based systems)
+        name:                                    # List of packages
+          - "{{ pkg_name }}"                     # Variable usage
+          - git
+          - curl
+        state: present                           # Ensure installed
+        update_cache: yes                        # Refresh package index
+      tags: install                              # Tag for selective execution
+
+    - name: Create a system user                 # Create user task
+      user:                                      # user module
+        name: "{{ user_name }}"                  # Username
+        shell: /bin/bash                         # Default shell
+        state: present                           # Ensure user exists
+
+    - name: Create directory                     # File module usage
+      file:
+        path: /var/www/html                      # Directory path
+        state: directory                         # Ensure directory exists
+        mode: '0755'                             # Permissions
+
+    - name: Copy static file                     # Copy module
+      copy:
+        src: index.html                          # File from control node
+        dest: "{{ file_path }}"                 # Destination path
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart nginx                      # Trigger handler if changed
+
+    - name: Use template (dynamic file)          # Template module
+      template:
+        src: index.j2                            # Jinja2 template file
+        dest: "{{ file_path }}"                 # Output file
+      notify: Restart nginx
+
+    - name: Ensure nginx is running              # Service management
+      service:
+        name: "{{ pkg_name }}"
+        state: started
+        enabled: yes
+
+    - name: Loop example - create multiple users # Loop concept
+      user:
+        name: "{{ item }}"
+        state: present
+      loop:                                      # Loop over list
+        - user1
+        - user2
+        - user3
+
+    - name: Register output of command           # Capture command output
+      command: uptime                            # Run shell command
+      register: uptime_output                    # Store result in variable
+
+    - name: Debug output                         # Print variable
+      debug:
+        var: uptime_output.stdout                # Access registered output
+
+    - name: Conditional execution                # Run only if condition matches
+      debug:
+        msg: "System is Ubuntu"
+      when: ansible_os_family == "Debian"       # Condition check
+
+    - name: Block with error handling            # Block concept
+      block:
+        - name: Install package (try)
+          apt:
+            name: apache2
+            state: present
+      rescue:                                    # If block fails
+        - name: Print error message
+          debug:
+            msg: "Installation failed"
+      always:                                    # Always runs
+        - name: Always execute this
+          debug:
+            msg: "This runs no matter what"
+
+  handlers:                                      # Handlers section (triggered by notify)
+    - name: Restart nginx                        # Handler name
+      service:
+        name: "{{ pkg_name }}"
+        state: restarted                         # Restart service
