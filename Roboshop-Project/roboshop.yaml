@@ -6,7 +6,7 @@
     ami_id: ami-0220d79f3f480ecf5
     env: dev
     instances:
-    - mangodb
+    - mongodb
     - catalogue
 
   tasks: 
