@@ -1,0 +1,6 @@
+---
+env_name: qa
+app_user: qaapp
+app_root: /opt/demo-app
+nginx_listen_port: 80
+nginx_server_name: qa.example.internal

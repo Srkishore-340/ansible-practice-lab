@@ -1,0 +1,6 @@
+---
+env_name: staging
+app_user: stgapp
+app_root: /opt/demo-app
+nginx_listen_port: 80
+nginx_server_name: staging.example.internal
